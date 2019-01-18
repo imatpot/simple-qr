@@ -1,8 +1,9 @@
-# qrcode.vue
+# random-string-qr
+I was just messing around with the packages [qrcode.vue](https://www.npmjs.com/package/qrcode.vue) and [randomstring](https://www.npmjs.com/package/randomstring) and built this little... thing.
 
 ## Project setup
 ```
-npm install
+npm i
 ```
 
 ### Compiles and hot-reloads for development
