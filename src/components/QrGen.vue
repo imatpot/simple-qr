@@ -77,7 +77,7 @@ export default {
 <style lang="scss" scoped>
 .data {
   margin-bottom: 1rem;
-  width: 375px;
+  width: 400px;
   text-align: center;
   font-family: Consolas, "Courier New", monospace;
 }
