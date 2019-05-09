@@ -1,5 +1,5 @@
 # random-string-qr
-I was just messing around with the packages [qrcode.vue](https://www.npmjs.com/package/qrcode.vue) and [randomstring](https://www.npmjs.com/package/randomstring) and built this little... thing.
+I was just messing around with the packages [qrcode.vue](https://www.npmjs.com/package/qrcode.vue) and built this little thing.
 
 ## Project setup
 ```
