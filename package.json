@@ -1,5 +1,5 @@
 {
-  "name": "random-string-qr",
+  "name": "simple-qr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,6 @@
   "dependencies": {
     "node-sass": "^4.12.0",
     "qrcode.vue": "^1.6.1",
-    "randomstring": "^1.1.5",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10"
   },
@@ -32,7 +31,47 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "vue/attribute-hyphenation": 1,
+      "vue/html-closing-bracket-newline": 2,
+      "vue/html-closing-bracket-spacing": 2,
+      "vue/html-end-tags": 2,
+      "vue/html-indent": 1,
+      "vue/html-quotes": 2,
+      "vue/html-self-closing": 1,
+      "vue/multiline-html-element-content-newline": 1,
+      "vue/mustache-interpolation-spacing": 1,
+      "vue/name-property-casing": 1,
+      "vue/no-multi-spaces": 1,
+      "vue/no-spaces-around-equal-signs-in-attribute": 1,
+      "vue/no-template-shadow": 2,
+      "vue/prop-name-casing": 1,
+      "vue/require-default-prop": 1,
+      "vue/require-prop-types": 1,
+      "vue/v-bind-style": 1,
+      "vue/v-on-style": 1,
+      "vue/attributes-order": 1,
+      "vue/no-confusing-v-for-v-if": 1,
+      "vue/no-v-html": 2,
+      "vue/order-in-components": 1,
+      "vue/this-in-template": 1,
+      "vue/array-bracket-spacing": 1,
+      "vue/arrow-spacing": 1,
+      "vue/block-spacing": 1,
+      "vue/brace-style": 1,
+      "vue/camelcase": 1,
+      "vue/component-name-in-template-casing": 1,
+      "vue/eqeqeq": 1,
+      "vue/key-spacing": 1,
+      "vue/match-component-file-name": 2,
+      "vue/no-boolean-default": 1,
+      "vue/object-curly-spacing": 1,
+      "vue/require-direct-export": 1,
+      "vue/script-indent": 1,
+      "vue/space-infix-ops": 1,
+      "vue/space-unary-ops": 1,
+      "vue/v-on-function-call": 2
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

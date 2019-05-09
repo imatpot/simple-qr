@@ -1,104 +1,79 @@
 <template>
   <div class="qr-gen">
-    <p>Displayed data</p>
-    <input class="data" type="text" v-model="value" id="data" disabled>
+    <p>Data</p>
+    <input v-model="value" class="data" type="text">
     <p>Size in pixels (100-1000)</p>
-    <input class="nr" type="number" max="1000" min="100" v-model="size" @blur="checkSize()">
+    <input v-model="size" class="size" type="number" max="1000" min="100" @blur="checkSize">
     <p>Background colour</p>
-    <input class="col" type="color" v-model="background">
+    <input v-model="background" class="color-picker" type="color">
     <p>Foreground colour</p>
-    <input class="col" type="color" v-model="foreground">
+    <input v-model="foreground" class="color-picker" type="color">
     <p>Error correction level</p>
-    <a
-      href="https://en.wikipedia.org/wiki/QR_code#Error_correction"
-      target="_blank"
-      class="info"
-    >What's that?</a>
-    <select v-model="errorCorrection" class="error">
+    <a href="https://en.wikipedia.org/wiki/QR_code#Error_correction" target="_blank" class="info">What's that?</a>
+    <select v-model="errorCorrection" class="error-correction">
       <option value="L">Low</option>
       <option value="M">Medium</option>
       <option value="Q">Quartile</option>
       <option value="H">High</option>
     </select>
-    <qrcode-vue
-      id="qr"
-      :value="value"
-      :size="size"
-      :level="errorCorrection"
-      :background="background"
-      :foreground="foreground"
-    ></qrcode-vue>
+    <qrcode-vue :value="value" :size="size" :level="errorCorrection" :background="background" :foreground="foreground" />
   </div>
 </template>
 
 <script>
-/* eslint-disable */
-
-import qrcodeVue from "qrcode.vue";
-import randomString from "randomstring";
+import qrcodeVue from 'qrcode.vue';
 
 export default {
-  name: "qrGen",
+  name: 'QrGen',
+  components: {
+    qrcodeVue
+  },
   data() {
     return {
-      value: this.randomQrString(),
+      value: 'https://github.com/mladenbrankovic/simple-qr',
       size: 200,
-      errorCorrection: "M",
-      background: "#FFFFFF",
-      foreground: "#000000"
+      errorCorrection: 'M',
+      background: '#FFFFFF',
+      foreground: '#000000'
     };
   },
   methods: {
     checkSize() {
       this.size = this.size < 100 ? 100 : this.size;
       this.size = this.size > 1000 ? 1000 : this.size;
-    },
-    randomQrString() {
-      return randomString.generate({
-        length: 50,
-        charset: "alphanumeric"
-      });
-    },
-    updateQr() {
-      this.value = this.randomQrString();
     }
-  },
-  beforeMount() {
-    setInterval(() => {
-      this.updateQr();
-    }, 2000);
-  },
-  components: {
-    qrcodeVue
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.data {
-  margin-bottom: 1rem;
-  width: 400px;
-  text-align: center;
-  font-family: Consolas, "Courier New", monospace;
-}
-.nr {
-  margin-bottom: 1rem;
-  width: 75px;
-}
-.col {
-  padding: 0;
-  width: 75px;
-}
-.error {
-  text-align: center;
-  margin-bottom: 5rem;
-  width: 75px;
-}
-.info {
-  display: block;
-  margin-top: -0.9rem;
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
-  text-decoration: none;
+.qr-gen {
+  .data {
+    margin-bottom: 1rem;
+    width: 400px;
+    text-align: center;
+    font-family: Consolas, "Courier New", monospace;
+  }
+  .size {
+    margin-bottom: 1rem;
+    width: 75px;
+    padding: 2;
+  }
+  .color-picker {
+    padding: 0;
+    width: 81px;
+  }
+  .error-correction {
+    text-align: center;
+    margin-bottom: 5rem;
+    width: 81px;
+  }
+  .info {
+    display: block;
+    margin-top: -0.9rem;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+  }
 }
 </style>
