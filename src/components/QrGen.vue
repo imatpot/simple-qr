@@ -48,9 +48,13 @@ export default {
 
 <style lang="scss" scoped>
 .qr-gen {
+  text-align: center;
+  width: 100%;
+
   .data {
     margin-bottom: 1rem;
-    width: 400px;
+    width: calc(100% - 16px);
+    max-width: 400px;
     text-align: center;
     font-family: Consolas, "Courier New", monospace;
   }
