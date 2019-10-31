@@ -25,10 +25,12 @@ html, body {
 
 #app {
   font-family: 'Roboto', sans-serif;
-  // min-height: 100vh;
-  height: 100%;
+  min-height: 100%;
   background: black;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   h1 {
     font-family: 'Lexend Deca', sans-serif;

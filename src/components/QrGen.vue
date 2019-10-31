@@ -55,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 main {
   text-align: center;
-  min-width: 100%;
+  width: 100%;
   min-height: calc(100% - 6rem);
   display: flex;
   flex-direction: column;
