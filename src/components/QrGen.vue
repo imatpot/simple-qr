@@ -4,25 +4,31 @@
     <div class="small creator">
       by <a href="https://github.com/mladenbrankovic" target="_blank" class="link">@mladenbrankovic</a>
     </div>
+
     <p class="label">Data</p>
-    <input v-model="value" class="input data" type="text">
+    <input v-model="value" class="input data" type="text" @change="setQrUrl">
+
     <p class="label">Size in pixels (100-1000)</p>
-    <input v-model="size" class="input size" type="number" max="1000" min="100" @blur="checkSize">
+    <input v-model="size" class="input size" type="number" max="1000" min="100" @change="setQrUrl">
+
     <p class="label">Background colour</p>
-    <input v-model="background" class="input color-picker" type="color">
+    <input v-model="background" class="input color-picker" type="color" @change="setQrUrl">
+
     <p class="label">Foreground colour</p>
-    <input v-model="foreground" class="input color-picker" type="color">
-    <p class="error-correction-label">Error correction level</p>
+    <input v-model="foreground" class="input color-picker" type="color" @change="setQrUrl">
+
+    <p>Error correction level</p>
     <a href="https://en.wikipedia.org/wiki/QR_code#Error_correction" target="_blank" class="label small link">What's that?</a>
-    <select v-model="errorCorrection" class="input error-correction">
+    <select v-model="errorCorrection" class="input error-correction" @change="setQrUrl">
       <option value="L">Low</option>
       <option value="M">Medium</option>
       <option value="Q">Quartile</option>
       <option value="H">High</option>
     </select>
-    <div class="display" :style="{background: background}">
-      <qrcode-vue :value="value" :size="size" :level="errorCorrection" :background="background" :foreground="foreground" />
-    </div>
+
+    <a class="display" :style="{background: background}" :href="url">
+      <qrcode-vue :value="value" :size="size > 1000 ? 1000 : size < 100 ? 100 : size" :level="errorCorrection" :background="background" :foreground="foreground" />
+    </a>
   </main>
 </template>
 
@@ -37,16 +43,25 @@ export default {
   data () {
     return {
       value: 'https://github.com/mladenbrankovic/simple-qr',
+      url: 'blob:null',
       size: 200,
       errorCorrection: 'M',
       background: '#FFFFFF',
       foreground: '#000000'
     };
   },
+  mounted () {
+    this.setQrUrl();
+  },
   methods: {
-    checkSize () {
-      this.size = this.size < 100 ? 100 : this.size;
-      this.size = this.size > 1000 ? 1000 : this.size;
+    setQrUrl () {
+      // The click event is faster than qrcode.vue's rendering, so we need to wait a moment until it's done
+      // If we don't, then the previously rendered QR code will be set in the URL
+      setTimeout(() => {
+        document.querySelector('canvas').toBlob(data => {
+          this.url = URL.createObjectURL(data);
+        });
+      }, 1);
     }
   }
 };
@@ -118,6 +133,7 @@ main {
   }
 
   .display {
+    cursor: pointer;
     margin-top: 3rem;
     border-radius: 1rem;
     padding: 1rem;
