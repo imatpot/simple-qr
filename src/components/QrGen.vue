@@ -9,7 +9,7 @@
     <input v-model="value" class="input data" type="text" @change="setQrUrl">
 
     <p class="label">Size in pixels (100-1000)</p>
-    <input v-model="size" class="input size" type="number" max="1000" min="100" @change="setQrUrl">
+    <input v-model="size" class="input size" type="number" max="1000" min="100" @change="setQrUrl" @blur="fixSize">
 
     <p class="label">Background colour</p>
     <input v-model="background" class="input color-picker" type="color" @change="setQrUrl">
@@ -54,6 +54,10 @@ export default {
     this.setQrUrl();
   },
   methods: {
+    fixSize () {
+      this.size = this.size > 1000 ? 1000 : this.size;
+      this.size = this.size > 1000 ? 1000 : this.size;
+    },
     setQrUrl () {
       // The click event is faster than qrcode.vue's rendering, so we need to wait a moment until it's done
       // If we don't, then the previously rendered QR code will be set in the URL
