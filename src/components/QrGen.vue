@@ -56,7 +56,7 @@ export default {
   methods: {
     fixSize () {
       this.size = this.size > 1000 ? 1000 : this.size;
-      this.size = this.size > 1000 ? 1000 : this.size;
+      this.size = this.size < 100 ? 100 : this.size;
     },
     setQrUrl () {
       // The click event is faster than qrcode.vue's rendering, so we need to wait a moment until it's done
