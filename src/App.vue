@@ -15,12 +15,23 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Lexend+Deca|Roboto&display=swap&subset=arabic,cyrillic,cyrillic-ext,devanagari,greek,greek-ext,latin-ext,vietnamese');
+@import url('assets/scss/_reset.scss');
+
+html, body {
+  height: 100%;
+}
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Roboto', sans-serif;
+  // min-height: 100vh;
+  height: 100%;
+  background: black;
+  color: white;
+
+  h1 {
+    font-family: 'Lexend Deca', sans-serif;
+  }
 }
 </style>
