@@ -4,6 +4,7 @@ FROM node:lts-alpine as install-stage
 WORKDIR /app
 COPY package*.json ./
 COPY . .
+RUN ping registry.npmjs.org
 RUN npm install
 
 # build-stage

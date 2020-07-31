@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   qr:
+    hostname: qr
     container_name: qr
     network_mode: host
     dns:
