@@ -2,12 +2,13 @@ version: "3.7"
 
 services:
   qr:
+    image: qr
     hostname: qr
     container_name: qr
+    build: .
     network_mode: host
     dns:
       - 1.1.1.1
       - 1.0.0.1
-    build: .
     ports:
-    - "8900:80"
+      - "8900:80"
