@@ -4,6 +4,9 @@ services:
   qr:
     container_name: qr
     network_mode: host
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     build: .
     ports:
     - "8900:80"
