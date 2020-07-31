@@ -11,7 +11,7 @@ FROM install-stage as build-stage
 RUN npm run build
 
 # production-stage
-FROM nginx:stable-alpine as production-stage
+FROM nginx:latest as production-stage
 
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 CMD [ "nginx", "-g", "daemon off;" ]
