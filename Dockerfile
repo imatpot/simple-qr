@@ -4,7 +4,7 @@ FROM node:lts-alpine as install-stage
 WORKDIR /app
 COPY package*.json ./
 COPY . .
-RUN npm install --verbose
+RUN npm install
 
 # build-stage
 FROM install-stage as build-stage
