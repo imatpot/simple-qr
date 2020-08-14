@@ -17,10 +17,11 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Lexend+Deca|Roboto&display=swap&subset=arabic,cyrillic,cyrillic-ext,devanagari,greek,greek-ext,latin-ext,vietnamese');
-@import url('assets/scss/_reset.scss');
+// @import url('assets/scss/_reset.scss');
 
 html, body {
   height: 100%;
+  margin: 0;
 }
 
 #app {
