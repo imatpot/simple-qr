@@ -1,24 +1,24 @@
 version: "3"
 
 services:
-  qr:
+  simple-qr:
     image: nginx:latest
-    hostname: qr
-    container_name: qr
+    hostname: simple-qr
+    container_name: simple-qr
     ports:
       - "8900:80"
     volumes:
-      - "qr:/usr/share/nginx/html:ro"
+      - "simple-qr:/usr/share/nginx/html:ro"
     depends_on:
-      - qr-builder
+      - simple-qr-builder
 
-  qr-builder:
-    image: qr-builder
-    hostname: qr-builder
-    container_name: qr-builder
+  simple-qr-builder:
+    image: simple-qr-builder
+    hostname: simple-qr-builder
+    container_name: simple-qr-builder
     build: .
     volumes:
-      - "qr:/app/dist"
+      - "simple-qr:/app/dist"
       
 volumes:
-  qr:
+  simple-qr:
