@@ -1,35 +1,68 @@
 <template>
-  <main>
-    <h1>Simple QR</h1>
-    <div class="small creator">
-      by <a href="https://github.com/mladenbrankovic" target="_blank" class="link">@mladenbrankovic</a>
+  <section>
+    <h1>simple qr</h1>
+
+    <h2>data</h2>
+    <input
+      v-model="content"
+      type="text"
+      @change="setQrUrl"
+      placeholder="https://github.com/mladenbrankovic"
+      onfocus="this.placeholder = ''"
+      onblur="this.placeholder = 'https://github.com/mladenbrankovic'"
+    />
+
+    <h2>size in pixels [ 100-1000 ]</h2>
+    <input v-model="size" type="text" max="1000" min="100" @change="setQrUrl" @blur="fixSize" />
+
+    <h2>background colour</h2>
+    <div class="color-picker">
+      <input v-model="background" type="color" @change="setQrUrl" />
+      <span :style="{ background: background }"></span>
     </div>
 
-    <p class="label">Data</p>
-    <input v-model="value" class="input data" type="text" @change="setQrUrl">
+    <h2>foreground colour</h2>
+    <div class="color-picker">
+      <input v-model="foreground" type="color" @change="setQrUrl" />
+      <span :style="{ background: foreground }"></span>
+    </div>
 
-    <p class="label">Size in pixels (100-1000)</p>
-    <input v-model="size" class="input size" type="number" max="1000" min="100" @change="setQrUrl" @blur="fixSize">
-
-    <p class="label">Background colour</p>
-    <input v-model="background" class="input color-picker" type="color" @change="setQrUrl">
-
-    <p class="label">Foreground colour</p>
-    <input v-model="foreground" class="input color-picker" type="color" @change="setQrUrl">
-
-    <p>Error correction level</p>
-    <a href="https://en.wikipedia.org/wiki/QR_code#Error_correction" target="_blank" class="label small link">What's that?</a>
-    <select v-model="errorCorrection" class="input error-correction" @change="setQrUrl">
-      <option value="L">Low</option>
-      <option value="M">Medium</option>
-      <option value="Q">Quartile</option>
-      <option value="H">High</option>
+    <h2>
+      error correction level
+    </h2>
+    <a
+      href="https://en.wikipedia.org/wiki/QR_code#Error_correction"
+      class="info"
+      target="_blank"
+      rel="noopener noreferrer"
+      >what's that?</a
+    >
+    <select v-model="errorCorrection" @change="setQrUrl">
+      <option value="L">low</option>
+      <option value="M">medium</option>
+      <option value="Q">quartile</option>
+      <option value="H">high</option>
     </select>
 
-    <a class="display" :style="{background: background}" :href="url">
-      <qrcode-vue :value="value" :size="size > 1000 ? 1000 : size < 100 ? 100 : size" :level="errorCorrection" :background="background" :foreground="foreground" />
+    <a :style="{ background: background }" :href="url" class="qr">
+      <qrcode-vue
+        :value="content"
+        :size="size > 1000 ? 1000 : size < 100 ? 100 : size"
+        :level="errorCorrection"
+        :background="background"
+        :foreground="foreground"
+      />
     </a>
-  </main>
+
+    <p class="links">
+      <a
+        href="https://github.com/mladenbrankovic/simple-qr"
+        target="_blank"
+        rel="noopener noreferrer"
+        >github</a
+      >
+    </p>
+  </section>
 </template>
 
 <script>
@@ -38,109 +71,160 @@ import qrcodeVue from 'qrcode.vue';
 export default {
   name: 'QrGen',
   components: {
-    qrcodeVue
+    qrcodeVue,
   },
-  data () {
+  data() {
     return {
-      value: 'https://github.com/mladenbrankovic/simple-qr',
+      content: '',
       url: 'blob:null',
       size: 200,
       errorCorrection: 'M',
       background: '#FFFFFF',
-      foreground: '#000000'
+      foreground: '#000000',
     };
   },
-  mounted () {
+  mounted() {
     this.setQrUrl();
   },
   methods: {
-    fixSize () {
+    fixSize() {
       this.size = this.size > 1000 ? 1000 : this.size;
       this.size = this.size < 100 ? 100 : this.size;
     },
-    setQrUrl () {
-      // The click event is faster than qrcode.vue's rendering, so we need to wait a moment until it's done
-      // If we don't, then the previously rendered QR code will be set in the URL
-      setTimeout(() => {
-        document.querySelector('canvas').toBlob(data => {
-          this.url = URL.createObjectURL(data);
-        });
-      }, 1);
-    }
-  }
+    setQrUrl() {
+      document.querySelector('canvas').toBlob(data => {
+        this.url = URL.createObjectURL(data);
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-main {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@300;400&family=Ubuntu+Mono&display=swap');
+
+section {
+  font-family: 'Roboto', sans-serif;
   width: 100%;
-  min-height: calc(100% - 6rem);
+  height: 100%;
+  padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+h1 {
+  font-family: 'Montserrat', 'Roboto', sans-serif;
+  margin: 0 0 5rem 0;
+  font-size: 3rem;
+
+  @media (min-width: 600px) {
+    font-size: 4rem;
+  }
+}
+
+h2 {
+  margin: 0 0 1rem 0;
   font-size: 1rem;
-  padding: 3rem 0;
+  font-weight: 300;
+  color: gray;
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.25rem;
+  @media (min-width: 600px) {
+    font-size: 1.5rem;
+  }
+}
+
+input {
+  width: 100%;
+  min-width: 25%;
+  max-width: 40rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-family: 'Ubuntu Mono', monospace;
+  border: 1px solid lightgray;
+  border-radius: 0.3rem 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.color-picker {
+  width: 15rem;
+  min-width: 25%;
+  max-width: 40rem;
+  height: calc(1rem + 16px);
+  margin-bottom: 3rem;
+  position: relative;
+
+  @media (min-width: 600px) {
+    width: 25rem;
   }
 
-  .creator {
-    margin-bottom: 2.5rem;
+  input[type='color'] {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
   }
 
-  .small {
-    font-size: 0.8rem;
+  span {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    display: block;
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 0.3rem 1rem;
+    box-sizing: border-box;
+  }
+}
+
+.info {
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+select {
+  cursor: pointer;
+  width: 15rem;
+  min-width: 25%;
+  max-width: 40rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 1rem;
+  border: 1px solid lightgray;
+  border-radius: 0.3rem 1rem;
+  text-align: center;
+  outline: none;
+
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  &::-ms-expand {
+    display: none;
   }
 
-  .label {
-    margin-bottom: 0.75rem;
+  @media (min-width: 600px) {
+    width: 25rem;
   }
+}
 
-  .input {
-    margin-bottom: 2rem;
-  }
+.qr {
+  margin-top: 5rem;
+}
 
-  .data {
-    width: calc(100% - 2rem);
-    max-width: 420px;
-    text-align: center;
-    font-family: "Consolas", "Courier New", monospace;
-  }
+.links {
+  margin-top: 5rem;
+  color: gray;
 
-  .size {
-    width: 75px;
-    padding: 2;
-  }
-
-  .color-picker {
-    padding: 0;
-    width: 81px;
-  }
-
-  .error-correction {
-    text-align: center;
-    width: 100px;
-  }
-
-  .link {
+  a {
+    color: gray;
     text-decoration: none;
-    margin-top: 0.5rem;
-    color: #3ea6ff;
 
     &:hover {
       text-decoration: underline;
     }
-  }
-
-  .display {
-    cursor: pointer;
-    margin-top: 3rem;
-    border-radius: 1rem;
-    padding: 1rem;
   }
 }
 </style>
